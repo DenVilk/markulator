@@ -1,0 +1,92 @@
+#root, body{
+    padding: 0;
+    margin: 0;
+    min-height: 90vh;
+}
+
+#root{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.display{
+    height: 15vh;
+    padding: 10px;
+    border-radius: 10px;
+    width: calc(100% - 20px);
+    background-color: rgb(26, 25, 25);
+    text-align: end;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.current-mark{
+    font-size: 32px;
+}
+
+.current-avg{
+    color: gray
+}
+
+.history{
+    height: 15vh;
+    overflow-x: scroll;
+    padding: 10px;
+    border-radius: 10px;
+    width: calc(100% - 20px);
+    background-color: rgb(44, 44, 44);
+}
+
+.history-mark{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 3px;
+    border-bottom: 1px solid rgb(35, 35, 35);
+    padding: 5px 0;
+}
+
+a.delete-mark{
+    background: rgb(255, 73, 73);
+    min-width: 30px;
+    min-height: 30px;
+    border-radius: 15px;
+    text-align: center;
+    vertical-align: center;
+}
+
+.keyboard{
+    height: 50vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    grid-template-areas:
+    "one two three"
+    "four five six"
+    "seven eight nine"
+    ". ten . ";
+}
+.equals { grid-area: equals; }
+.one { grid-area: one; }
+.two { grid-area: two; }
+.three { grid-area: three; }
+.four { grid-area: four; }
+.five { grid-area: five; }
+.six { grid-area: six; }
+.seven { grid-area: seven; }
+.eight { grid-area: eight; }
+.nine { grid-area: nine; }
+.ten { grid-area: ten; }
+
+@media (prefers-color-scheme: light) {
+    .display{
+        background-color: #c2c2c2;
+    }
+
+    .history{
+        background-color: #f9f9f9;
+    }
+}
