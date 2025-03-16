@@ -1,47 +1,51 @@
-// Название кэша - для каждого изменения кода стоит переименовывать
-var CACHE = 'markulator-cache2'
+const CACHE_NAME = 'markulator-cache-v4'; // Версионируйте явно
+const PRECACHE_URLS = [
+  '/markulator/',
+  '/markulator/index.html',
+  '/markulator/logo.png',
+  '/markulator/vite.svg',
+  '/markulator/manifest.json',
+  '/markulator/assets/index-*.js',
+  '/markulator/assets/index-*.css',
+  '/markulator/assets/logos/favicon.ico',
+];
 
-// Отлавливаем событие установки воркера
-self.addEventListener('install', function (evt) {
-  evt.waitUntil(precache())
-})
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => cache.addAll(PRECACHE_URLS))
+      .then(self.skipWaiting())
+  );
+});
 
-// На событии fetch используем кэш, но обновляем при появлении нового контента
-self.addEventListener('fetch', function (evt) {
-  console.log('The service worker is serving the asset.')
-  evt.respondWith(fromCache(evt.request))
-  evt.waitUntil(update(evt.request))
-})
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) return caches.delete(cache);
+        })
+      );
+    }).then(() => self.clients.claim())
+  );
+});
 
-// Записываем, что конкретно нам нужно кэшировать
-function precache() {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.addAll([
-      '/*',
-      '/assets/*',
-      //   '/assets/logos/favicon.ico',
-      //   '/assets/logos/yellow 192.png',
-      //   '/assets/logos/yellow 512.png',
-      //   '/robots.txt'
-    ])
-  })
-}
+self.addEventListener('fetch', event => {
+  // Network-first с fallback к кэшу
+  event.respondWith(
+    fetch(event.request)
+      .catch(() => caches.match(event.request))
+  );
 
-// При запросе проверяем, есть ли в кэше нужный ресурс. Если да, отдаем кэш
-function fromCache(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.match(request).then(function (matching) {
-      return matching || null
-    })
-  })
-}
-
-// Обновление состоит из открытия кэша, обработки сетевых запросов
-// и сохранения новых данных
-function update(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return fetch(request).then(function (response) {
-      return cache.put(request, response)
-    })
-  })
-}
+  // Обновление кэша для GET-запросов
+  if (event.request.method === 'GET') {
+    event.waitUntil(
+      fetch(event.request).then(response => {
+        if (response.status === 200) {
+          return caches.open(CACHE_NAME)
+            .then(cache => cache.put(event.request, response));
+        }
+      })
+    );
+  }
+});
