@@ -1,13 +1,13 @@
 const CACHE_NAME = 'markulator-cache-v4'; // Версионируйте явно
 const PRECACHE_URLS = [
-  '/markulator/',
-  '/markulator/index.html',
-  '/markulator/logo.png',
-  '/markulator/vite.svg',
-  '/markulator/manifest.json',
-  '/markulator/assets/index-*.js',
-  '/markulator/assets/index-*.css',
-  '/markulator/assets/logos/favicon.ico',
+  '/',
+  '/index.html',
+  '/logo.png',
+  '/vite.svg',
+  '/manifest.json',
+  '/assets/index-*.js',
+  '/assets/index-*.css',
+  '/assets/logos/favicon.ico',
 ];
 
 self.addEventListener('install', event => {

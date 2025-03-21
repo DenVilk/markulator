@@ -1,0 +1,5 @@
+services:
+  markulator:
+    build: .
+    ports:
+      - 80:80
