@@ -1,8 +1,43 @@
 {
-    "short_name": "MWA",
-    "name": "Modern Web App",
-    "description": "Modern app built with React SSR, PWA, material-ui, code splitting and much more",
+    "short_name": "Markulator",
+    "name": "Markulator",
+    "description": "Markulator is application for calculating average marks",
     "icons": [
+        {
+            "src": "/logo.png",
+            "sizes": "512*512",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "384*384",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "192*192",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "152*152",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "144*144",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "128*128",
+            "type": "image/png"
+        },
+        {
+            "src": "/logo.png",
+            "sizes": "96*96",
+            "type": "image/png"
+        },
         {
             "src": "/logo.png",
             "sizes": "72*72",

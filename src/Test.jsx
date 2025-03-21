@@ -13,8 +13,13 @@ const Test = () => {
         for (let i=0;i<marks.length;i++){
             ans += marks[i];
         }
+
         if (marks.length == 0) setCurrentAvg(0.0);
-        else setCurrentAvg(ans/(marks.length));
+        else {
+            let avg = ans/(marks.length);
+            avg = Math.trunc(avg * 100) / 100;
+            setCurrentAvg(avg);
+        }
     }, [marks])
 
     const addMark = (mark)=>{
@@ -32,9 +37,12 @@ const Test = () => {
     }
 
     const buttonHandler = (e) => {
-        console.log("test2", marks.length)
         addMark(e.target.value);
-        console.log("test2", marks.length)
+    }
+
+    const clearHandler = (e) => {
+        setMarks([]);
+        setCurrentMark(0);
     }
 
     return (
@@ -42,6 +50,7 @@ const Test = () => {
             <div className="display">
                 <span className="current-mark">{currentMark}</span>
                 <span className="current-avg">Average: {currentAvg}</span>
+                <span className="current-avg">Count: {marks.length}</span>
             </div>
             <div className="history">
                 <div className="history-marks">
@@ -68,6 +77,7 @@ const Test = () => {
                 <Button value='8' className='eight' callback={buttonHandler}/>
                 <Button value='9' className='nine' callback={buttonHandler}/>
                 <Button value='10' className="ten" callback={buttonHandler}/>
+                <Button value='c' className="c" callback={clearHandler}/>
             </div>
         </>
     )

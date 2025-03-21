@@ -67,7 +67,7 @@ a.delete-mark{
     "one two three"
     "four five six"
     "seven eight nine"
-    ". ten . ";
+    ". ten c ";
 }
 .equals { grid-area: equals; }
 .one { grid-area: one; }
@@ -80,6 +80,7 @@ a.delete-mark{
 .eight { grid-area: eight; }
 .nine { grid-area: nine; }
 .ten { grid-area: ten; }
+.c { grid-area: c; }
 
 @media (prefers-color-scheme: light) {
     .display{
