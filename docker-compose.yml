@@ -1,5 +1,17 @@
 services:
   markulator:
     build: .
-    ports:
-      - 80:80
+    container_name: markulator
+    networks:
+      - web_traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.markulator-router.rule=Host(`mark.prodigy.by`)"
+      - "traefik.http.services.markulator-service.loadbalancer.server.port=80"
+      - "traefik.http.routers.markulator-router.entrypoints=websecure,web"
+      - "traefik.http.routers.markulator-router.tls=true"
+      - "traefik.http.routers.markulator-router.tls.certresolver=letsencrypt"
+
+networks:
+  web_traefik:
+    external: true
